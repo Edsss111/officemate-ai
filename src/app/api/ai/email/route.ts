@@ -17,6 +17,6 @@ export async function POST(request: Request) {
     system: EMAIL_SYSTEM_PROMPT,
     buildUserPrompt: buildEmailUserPrompt,
     schemaName: "email_writer_output",
-    jsonSchema: emailOutputJsonSchema,
+    jsonSchema: emailOutputJsonSchema as Record<string, unknown>,
   });
 }

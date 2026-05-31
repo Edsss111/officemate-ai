@@ -17,6 +17,6 @@ export async function POST(request: Request) {
     system: EXCEL_SYSTEM_PROMPT,
     buildUserPrompt: buildExcelUserPrompt,
     schemaName: "excel_formula_output",
-    jsonSchema: excelOutputJsonSchema,
+    jsonSchema: excelOutputJsonSchema as Record<string, unknown>,
   });
 }

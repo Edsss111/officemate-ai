@@ -17,6 +17,6 @@ export async function POST(request: Request) {
     system: SOP_SYSTEM_PROMPT,
     buildUserPrompt: buildSopUserPrompt,
     schemaName: "sop_generator_output",
-    jsonSchema: sopOutputJsonSchema,
+    jsonSchema: sopOutputJsonSchema as Record<string, unknown>,
   });
 }
