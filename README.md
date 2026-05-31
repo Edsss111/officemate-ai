@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OfficeMate AI
 
-## Getting Started
+AI-powered office tools: Email Writer, SOP Generator, and Excel Formula Generator.
 
-First, run the development server:
+## Setup
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### 1. Environment variables
+
+Copy the example file and add your Supabase keys:
+
+```powershell
+copy .env.local.example .env.local
+notepad .env.local
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```bash
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_SUPABASE_URL=https://YOUR_REF.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
+OPENAI_API_KEY=sk-...
+OPENAI_MODEL=gpt-4o-mini
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Get keys from [Supabase Dashboard](https://supabase.com/dashboard) → Project Settings → API.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. Database migration
 
-## Learn More
+In Supabase → **SQL Editor**, paste and run:
 
-To learn more about Next.js, take a look at the following resources:
+- `supabase/migrations/001_profiles.sql`
+- `supabase/migrations/002_usage.sql`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### 3. Supabase Auth URLs
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Authentication → URL Configuration:
 
-## Deploy on Vercel
+- **Site URL:** `http://localhost:3000`
+- **Redirect URLs:**
+  - `http://localhost:3000/auth/callback`
+  - `https://officemate-ai.vercel.app/auth/callback`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Enable **Email** (and optionally **Google**) under Authentication → Providers.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### 4. Run locally
+
+```powershell
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Routes
+
+| Path | Description |
+|------|-------------|
+| `/` | Landing page |
+| `/login` | Sign in / sign up |
+| `/dashboard` | Protected dashboard |
+
+## Deploy (Vercel)
+
+Add the same `NEXT_PUBLIC_*` environment variables in Vercel project settings, then redeploy.
